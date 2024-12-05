@@ -1,0 +1,21 @@
+create database academia;
+use academia;
+
+create table aluno(
+nome varchar(100) NOT NULL,
+email varchar(50) NOT NULL,
+telefone varchar(50) NOT NULL,
+endereco varchar(50) NOT NULL,
+cpf int NOT NULL
+);
+
+create table aulas(
+nome varchar (50)  not null,
+horario varchar (5)  not null
+);
+
+create table funcionario(
+    id_funcionario INT AUTO_INCREMENT PRIMARY KEY,
+    nome_funcionario VARCHAR(100) NOT NULL,
+    cargo varchar (100) not null
+);

@@ -1,7 +1,7 @@
 <?php 
 
 // Criando a conexão
-  $pdo = new PDO("mysql:dbname=test;host=localhost:3306","root","");
+  $pdo = new PDO("mysql:dbname=academia;host=localhost:3306","root","cimatec");
 
  /* Teste de conexão
   if ($pdo){
