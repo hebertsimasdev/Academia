@@ -38,6 +38,13 @@ $exercicios = $stmtExercicios->fetchAll(PDO::FETCH_ASSOC);
 
         body {
             background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1; /* Faz o conteúdo ocupar o espaço restante da tela */
         }
 
         .navbar {
@@ -49,8 +56,6 @@ $exercicios = $stmtExercicios->fetchAll(PDO::FETCH_ASSOC);
             color: white;
             text-align: center;
             padding: 10px;
-            position: absolute;
-            bottom: 0;
             width: 100%;
         }
 
@@ -118,37 +123,12 @@ $exercicios = $stmtExercicios->fetchAll(PDO::FETCH_ASSOC);
                 </select>
             </div>
 
-            <div id="exercicios-container">
-                <div class="mb-3">
-                    <label for="exercicio_0" class="form-label">Escolha o Exercício</label>
-                    <select class="form-select" name="exercicios[0][exercicio]" id="exercicio_0" required>
-                        <option value="">Escolha o exercício</option>
-                        <?php foreach ($exercicios as $exercicio): ?>
-                            <option value="<?= $exercicio['id']; ?>"><?= $exercicio['nome_exercicio']; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="mb-3">
-                    <label for="serie_0" class="form-label">Número de Séries</label>
-                    <input type="number" class="form-control" name="exercicios[0][serie]" id="serie_0" min="1" max="10" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="repeticao_0" class="form-label">Repetições</label>
-                    <input type="number" class="form-control" name="exercicios[0][repeticao]" id="repeticao_0" min="1" max="100" required>
-                </div>
-            </div>
-
             <div class="mb-3">
-                <button type="button" class="btn btn-info" id="add-exercicio">Adicionar outro exercício</button>
+                <label for="treino-descricao" class="form-label">Descrição do Treino (Ex: Exercício, Séries, Repetições)</label>
+                <textarea class="form-control" id="treino-descricao" name="treino_descricao" rows="5" placeholder="Exemplo: Agachamento - 4 séries de 12 repetições." required></textarea>
             </div>
 
-            <div class="treino-lista">
-                <h5>Resumo do Treino</h5>
-                <ul id="treino-lista">
-                    <!-- Exercícios adicionados dinamicamente aparecerão aqui -->
-                </ul>
+
             </div>
 
             <div class="d-grid gap-2">
@@ -158,85 +138,27 @@ $exercicios = $stmtExercicios->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </main>
 
-<footer>
-    <p>&copy; 2024 Sistema de Treinos - Todos os direitos reservados.</p>
-</footer>
-
 <script>
-    let contador = 1;
-
-    // Função para adicionar exercício e atualizar lista
-    document.getElementById('add-exercicio').addEventListener('click', function() {
-        const container = document.getElementById('exercicios-container');
-        const listaTreino = document.getElementById('treino-lista');
+    // Exemplo de como pode ser mostrado o resumo do treino ao preencher o campo
+    document.getElementById('treino-descricao').addEventListener('input', function() {
+        const descricao = this.value;
+        const resumoTreino = document.getElementById('treino-lista');
         
-        // Criar um novo campo para exercício, série e repetição
-        const novoExercicio = document.createElement('div');
-        novoExercicio.classList.add('mb-3');
-        novoExercicio.innerHTML = `
-            <label for="exercicio_${contador}" class="form-label">Escolha o Exercício</label>
-            <select class="form-select" name="exercicios[${contador}][exercicio]" id="exercicio_${contador}" required>
-                <option value="">Escolha o exercício</option>
-                <?php foreach ($exercicios as $exercicio): ?>
-                    <option value="<?= $exercicio['id']; ?>"><?= $exercicio['nome_exercicio']; ?></option>
-                <?php endforeach; ?>
-            </select>
-        `;
-        container.appendChild(novoExercicio);
-
-        // Série
-        const serieInput = document.createElement('div');
-        serieInput.classList.add('mb-3');
-        serieInput.innerHTML = `
-            <label for="serie_${contador}" class="form-label">Número de Séries</label>
-            <input type="number" class="form-control" name="exercicios[${contador}][serie]" id="serie_${contador}" min="1" max="10" required>
-        `;
-        container.appendChild(serieInput);
-
-        // Repetições
-        const repeticaoInput = document.createElement('div');
-        repeticaoInput.classList.add('mb-3');
-        repeticaoInput.innerHTML = `
-            <label for="repeticao_${contador}" class="form-label">Repetições</label>
-            <input type="number" class="form-control" name="exercicios[${contador}][repeticao]" id="repeticao_${contador}" min="1" max="100" required>
-        `;
-        container.appendChild(repeticaoInput);
-
-        // Adicionar na lista de treino
-        const itemTreino = document.createElement('li');
-        itemTreino.setAttribute("id", `treino-item-${contador}`);
-        itemTreino.classList.add("treino-item");
-        itemTreino.innerHTML = `
-            <strong>Exercício ${contador + 1}:</strong>
-            <span id="nome_exercicio_${contador}">Escolha o exercício</span>, 
-            Séries: <span id="serie_${contador}">-</span>, 
-            Repetições: <span id="repeticao_${contador}">-</span>
-        `;
-        listaTreino.appendChild(itemTreino);
-
-        // Atualizar valores no resumo de treino ao selecionar exercício, série e repetição
-        const exercicioSelect = document.getElementById(`exercicio_${contador}`);
-        const serieInputElement = document.getElementById(`serie_${contador}`);
-        const repeticaoInputElement = document.getElementById(`repeticao_${contador}`);
-
-        exercicioSelect.addEventListener('change', function() {
-            const nomeExercicio = exercicioSelect.options[exercicioSelect.selectedIndex].text;
-            document.getElementById(`nome_exercicio_${contador}`).textContent = nomeExercicio;
-        });
-
-        serieInputElement.addEventListener('input', function() {
-            const serie = serieInputElement.value;
-            document.getElementById(`serie_${contador}`).textContent = serie;
-        });
-
-        repeticaoInputElement.addEventListener('input', function() {
-            const repeticao = repeticaoInputElement.value;
-            document.getElementById(`repeticao_${contador}`).textContent = repeticao;
-        });
-
-        contador++;
+        // Limpar a lista anterior
+        resumoTreino.innerHTML = '';
+        
+        // Adicionar o item à lista de resumo
+        if (descricao.trim() !== "") {
+            const itemTreino = document.createElement('li');
+            itemTreino.classList.add("treino-item");
+            itemTreino.innerHTML = `<strong>Treino:</strong> ${descricao}`;
+            resumoTreino.appendChild(itemTreino);
+        }
     });
 </script>
 
 </body>
+<footer>
+    <p>&copy; 2024 Sistema de Treinos - Todos os direitos reservados.</p>
+</footer>
 </html>

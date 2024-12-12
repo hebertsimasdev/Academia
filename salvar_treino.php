@@ -15,50 +15,52 @@ try {
 
 // Verificar se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Receber os dados do formulário
-    $aluno_id = $_POST['aluno'];
-    $exercicios = $_POST['exercicios'];
-    $repeticoes = $_POST['repeticoes'];
-    $serie = $_POST['serie'];
+    // Obter os dados do formulário
+    $alunoId = $_POST['aluno'];
+    $descricaoTreino = $_POST['treino_descricao'];
 
-    // Verificar se o aluno foi selecionado
-    if (empty($aluno_id)) {
-        echo "Erro: Nenhum aluno selecionado.";
+    // Validar se todos os campos necessários estão preenchidos
+    if (empty($alunoId) || empty($descricaoTreino)) {
+        echo "Todos os campos devem ser preenchidos.";
         exit;
     }
 
-    // Verificar se os exercícios foram selecionados
-    if (empty($exercicios)) {
-        echo "Erro: Nenhum exercício selecionado.";
-        exit;
-    }
-
-    // Preparar e executar a inserção dos treinos na tabela 'treino'
     try {
-        $pdo->beginTransaction(); // Iniciar transação
+        // Iniciar transação para garantir que tudo seja salvo corretamente
+        $pdo->beginTransaction();
 
-        // Inserir as séries e repetições para cada exercício selecionado
-        foreach ($exercicios as $exercicio_id) {
-            // Inserir treino para o exercício
-            $stmt = $pdo->prepare("INSERT INTO treino (id_aluno, id_exercicio, serie, repeticao) VALUES (:aluno_id, :exercicio_id, :serie, :repeticoes)");
-            $stmt->bindParam(':aluno_id', $aluno_id);
-            $stmt->bindParam(':exercicio_id', $exercicio_id);
-            $stmt->bindParam(':serie', $serie);
-            $stmt->bindParam(':repeticoes', $repeticoes);
-            $stmt->execute();
-        }
+        // Inserir o treino na tabela 'treinos'
+        $stmtTreino = $pdo->prepare("INSERT INTO treinos (aluno_id, descricao) VALUES (?, ?)");
+        $stmtTreino->execute([$alunoId, $descricaoTreino]);
+        $treinoId = $pdo->lastInsertId(); // Obter o ID do treino inserido
 
-        // Se tudo ocorrer bem, confirmar a transação
+        // Aqui seria a parte onde associamos os exercícios, caso o formulário permita
+        // a seleção de exercícios, mas para simplificação, estamos apenas salvando a
+        // descrição do treino.
+
+        // Se você estiver implementando uma funcionalidade de associar exercícios,
+        // seria necessário adicionar campos no formulário para os exercícios e processá-los
+        // nesta parte. Exemplo de inserção de dados em treino_exercicio:
+
+        // $exercicioId = ... (obtido via POST ou seleção);
+        // $serie = ...; 
+        // $repeticao = ...;
+        // $stmtExercicio = $pdo->prepare("INSERT INTO treino_exercicio (treino_id, exercicio_id, serie, repeticao) VALUES (?, ?, ?, ?)");
+        // $stmtExercicio->execute([$treinoId, $exercicioId, $serie, $repeticao]);
+
+        // Confirmar transação
         $pdo->commit();
 
+        // Redirecionar ou exibir uma mensagem de sucesso
         echo "Treino salvo com sucesso!";
-    } catch (PDOException $e) {
-        // Em caso de erro, reverter a transação
+        sleep(3);
+        header(header: "Location: homepage.php"); 
+    } catch (Exception $e) {
+        // Em caso de erro, desfaz a transação
         $pdo->rollBack();
         echo "Erro ao salvar o treino: " . $e->getMessage();
     }
 } else {
-    // Caso o método não seja POST
-    echo "Erro: Método inválido.";
+    echo "Método de solicitação inválido.";
 }
 ?>

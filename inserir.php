@@ -13,5 +13,5 @@ $sql->bindValue(':telefone', $telefone);
 $sql->bindValue(':plano', $plano);
 $sql->execute();
 
-header("Location: cadastro_aluno.php"); // Redireciona para a página principal
+header(header: "Location: cadastro_aluno.php"); // Redireciona para a página principal
 ?>
