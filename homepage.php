@@ -116,7 +116,7 @@ require 'conexao.php';
                             <br>
 
 
-                            <a href="https://www.gsuplementos.com.br/" target="_blank" class="btn btn-primary">ACESSE O SITE</a>
+                            <a href="https://www.gsuplementos.com.br/" target="_blank" class="btn btn-warning">ACESSE O SITE</a>
                         </div>
                     </div>
                 </div>
@@ -126,6 +126,7 @@ require 'conexao.php';
                         <div class="card-body">
                             <h5 class="card-title">Treino</h5>
                             <p class="card-text">Monte seu treino.</p>
+                            <a href="treino.php" class="btn btn-dark">MONTAR</a>
                         </div>
                     </div>
                 </div>
@@ -138,7 +139,7 @@ require 'conexao.php';
 
 
                                 <p class="card-text">Faça sua primeira aula experimental.</p>
-                                <a href="cadastro_aluno.php" class="btn btn-primary">CADASTRAR</a>
+                                <a href="cadastro_aluno.php" class="btn btn-success">CADASTRAR</a>
 
                             </div>
                         </div>
