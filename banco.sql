@@ -6,7 +6,7 @@ USE academia;
 CREATE TABLE membros (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL, -- Garantir email único
     telefone VARCHAR(15),
     plano VARCHAR(50),
     data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -28,48 +28,26 @@ VALUES ('admTeste', 'teste123', 'Administrador');
 -- Tabela para armazenar os exercícios
 CREATE TABLE exercicios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome_exercicio VARCHAR(255) NOT NULL,
+    nome_exercicio VARCHAR(100) NOT NULL, -- Ajustado para 100, mais adequado
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Tabela para armazenar os treinos (relacionamento entre alunos e exercícios)
-CREATE TABLE treino (
+-- Tabela para armazenar os treinos, com relação ao aluno
+CREATE TABLE treinos (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_aluno INT NOT NULL,
-    id_exercicio INT NOT NULL,
-    serie INT NOT NULL,
-    repeticao INT NOT NULL,
-    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_aluno) REFERENCES membros(id),
-    FOREIGN KEY (id_exercicio) REFERENCES exercicios(id)
+    aluno_id INT NOT NULL,
+    descricao TEXT NOT NULL,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (aluno_id) REFERENCES membros(id) ON DELETE CASCADE
 );
 
--- Inserir os exercícios no banco de dados
-INSERT INTO exercicios (nome_exercicio) VALUES
-('Barra Fixa/Paralelas'),
-('Peck Deck (Voador)'),
-('Puxador (Pulley)'),
-('Desenvolvimento de Ombro'),
-('Cross Over'),
-('Remada Sentada'),
-('Polia'),
-('Power Racks'),
-('Prancha Abdominal'),
-('Aparelho de Glúteo'),
-('Cadeira Abdutora'),
-('Cadeira Adutora'),
-('Cadeira Extensora'),
-('Cadeira Flexora'),
-('Leg Press'),
-('Hack para Agachamento'),
-('Barra Guiada (Smith)'),
-('Elevação Pélvica'),
-('Panturrilha Sentada'),
-('Bicicleta Ergométrica'),
-('Esteira'),
-('Elíptico'),
-('Remo Indoor'),
-('Simulador de Escada'),
-('Kettlebell'),
-('Mini Jump Profissional'),
-('Step');
+-- Tabela para armazenar os treinos e seus exercícios (muitos-para-muitos)
+CREATE TABLE treino_exercicio (
+    treino_id INT NOT NULL,
+    exercicio_id INT NOT NULL,
+    serie INT NOT NULL,
+    repeticao INT NOT NULL,
+    PRIMARY KEY (treino_id, exercicio_id),
+    FOREIGN KEY (treino_id) REFERENCES treinos(id) ON DELETE CASCADE,
+    FOREIGN KEY (exercicio_id) REFERENCES exercicios(id) ON DELETE CASCADE
+);
