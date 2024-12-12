@@ -102,7 +102,7 @@ $exercicios = $stmtExercicios->fetchAll(PDO::FETCH_ASSOC);
                     <li class="nav-item"><a class="nav-link" href="planos.php">Planos</a></li>
                 </ul>
             </div>
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-danger">
                 <a href="index.php" class="text-white text-decoration-none">Sair</a>
             </button>
         </div>

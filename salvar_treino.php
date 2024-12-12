@@ -52,8 +52,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $pdo->commit();
 
         // Redirecionar ou exibir uma mensagem de sucesso
-        echo "Treino salvo com sucesso!";
-        sleep(3);
+
+// Exibe uma mensagem de espera
+echo "Processando... Aguarde um momento.";
+
+// Adiciona um delay de 3 segundos
+sleep(3);
+
+// Depois do delay, mostra a próxima etapa
+echo "Processamento concluído!";
+
+sleep(2);
+
+
         header(header: "Location: homepage.php"); 
     } catch (Exception $e) {
         // Em caso de erro, desfaz a transação

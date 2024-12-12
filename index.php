@@ -24,7 +24,7 @@ if (isset($_POST['acao'])) {
             exit();
 
         } elseif ($user['perfil'] === 'Aluno') {
-            header("Location: home_aluno.php");
+            header("Location: homepage_aluno.php");
             exit();
         } 
     } else {

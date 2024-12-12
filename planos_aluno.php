@@ -13,6 +13,7 @@
         }
 
         body {
+            
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -49,35 +50,33 @@
 </head>
 
 <body>
+<body>
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary " style="box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25)">
             <div class="container-fluid">
-                <a class="navbar-brand" href="homepage.php"><img id="imagens" src="logo.png" width="60"></a>
+                <a class="navbar-brand" href="homepage_aluno.php"><img id="imagens" src="logo.png" width="60"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="homepage.php">HOME</a>
+                            <a class="nav-link active" aria-current="page" href="homepage_aluno.php">HOME</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="cadastro_aluno.php">CADASTRO DE ALUNOS</a>
-                        </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 INSTRUTORES
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="cad_prof.php">CADASTRO DE INSTRUTORES</a></li>
                                 <li><a class="dropdown-item" href="instrutores.php">QUADRO DE COLABORADORES</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="financeiro.php">FINANCEIRO</a>
+                            <a class="nav-link" href="financeiro_aluno.php">FINANCEIRO</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="planos.php">PLANOS</a>
+                            <a class="nav-link" href="planos_aluno.php">PLANOS</a>
                         </li>
                     </ul>
                 </div>
@@ -91,3 +90,14 @@
     </header>
     <main>
         <br>
+
+        <div class="col">
+    <div class="card" style="width: 40%; margin: 0 auto;">
+        <img src="planos.png" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+        
+        <div class="card-body">
+            <h5 class="card-title">META</h5>
+            <p class="card-text">ESCOLHA A SUA!</p>
+        </div>
+    </div>
+</div>

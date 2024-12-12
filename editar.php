@@ -111,7 +111,7 @@ if (!$membro) {
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary " style="box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25)">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home_admin.php"><img id="imagens" src="logo.png" width="60"></a>
+                <a class="navbar-brand" href="homepage.php"><img id="imagens" src="logo.png" width="60"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -142,7 +142,7 @@ if (!$membro) {
                 </div>
             </div>
             <div class="sair">
-                <button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                <button type="button" class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                     <a href="index.php" style="color: white; text-decoration: none;">Sair</a>
                 </button>
             </div>
