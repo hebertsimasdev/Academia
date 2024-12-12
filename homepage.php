@@ -14,7 +14,7 @@ require 'conexao.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <title>Light</title>
-    <link rel="icon" href="logo.png">
+    <link rel="icon" href="logo.png" href="homepage.php">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
@@ -72,7 +72,7 @@ require 'conexao.php';
                             <a class="nav-link active" aria-current="page" href="homepage.php">HOME</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="cad_aluno.php">CADASTRO DE ALUNOS</a>
+                            <a class="nav-link" href="cadastro_aluno.php">CADASTRO DE ALUNOS</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -107,13 +107,14 @@ require 'conexao.php';
                     <div class="card" style="width: 18rem;">
                         <img src="suplemento.png" class="card-img-top">
                         <div class="card-body">
-                            <h5 class="card-title">Transforme seus treinos</h5>
-                            <br>
-                            <br>
+                            <h5 class="card-title">Suplementação dos Montros</h5>
                             <br>
                             <br>
 
                             <p class="card-text">CUPOM LACADEMY.</p>
+                            <br>
+                            <br>
+
 
                             <a href="https://www.gsuplementos.com.br/" target="_blank" class="btn btn-primary">ACESSE O SITE</a>
                         </div>

@@ -30,52 +30,132 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excluir Membro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>Light</title>
+    <link rel="icon" href="logo.png" href="homepage.php">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+        * {
+            font-family: "Poppins", sans-serif;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: DarkSeaGreen;
+        }
+
+        .navbar {
+            box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+            background-color: whitesmoke;
+            border-radius: 2px;
+        }
+
+        .sair {
+            margin: 10px;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
             text-align: center;
-            background-color: #f0f0f0;
-            padding: 30px;
+            padding: 10px;
         }
+
         .form-container {
-            background-color: #fff;
+            background-color: rgba(0, 0, 0, 0.6);
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            margin: auto;
+            border-radius: 15px;
+            color: white;
+            margin-top: 20px;
         }
-        button {
-            background-color: #e74c3c;
+
+        h1 {
+            color: white;
+        }
+
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+        }
+
+        .btn-custom {
+            background-color: #007bff;
             color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
         }
-        button:hover {
-            background-color: #c0392b;
-        }
-        a {
+
+        .btn-custom:hover {
+            background-color: #0056b3;
             text-decoration: none;
-            color: #3498db;
-            font-weight: bold;
         }
     </style>
 </head>
+
 <body>
-    <h1>Excluir Membro</h1>
-    <p>Tem certeza que deseja excluir o membro abaixo?</p>
-    <div class="form-container">
-        <form action="confirmar_exclusao.php" method="POST">
-            <input type="hidden" name="id" value="<?php echo htmlspecialchars($membro['id']); ?>">
-            <p><strong>Nome:</strong> <?php echo htmlspecialchars($membro['nome']); ?></p>
-            <p><strong>Email:</strong> <?php echo htmlspecialchars($membro['email']); ?></p>
-            <button type="submit">Excluir</button>
-        </form>
-        <br>
-        <a href="cadastro_aluno.php">Cancelar</a>
-    </div>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25)">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="home_admin.php"><img id="imagens" src="logo.png" width="60"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="homepage.php">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="cadastro_aluno.php">CADASTRO DE ALUNOS</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                INSTRUTORES
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="cad_prof.php">CADASTRO DE INSTRUTORES</a></li>
+                                <li><a class="dropdown-item" href="instrutores.php">QUADRO DE COLABORADORES</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="financeiro.php">FINANCEIRO</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="planos.php">PLANOS</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="sair">
+                <button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                    <a href="index.php" style="color: white; text-decoration: none;">Sair</a>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="text-center mb-4">Excluir Membro</h1>
+            <p class="text-center">Tem certeza que deseja excluir o membro abaixo?</p>
+            <div class="form-container">
+                <form action="confirmar_exclusao.php" method="POST">
+                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($membro['id']); ?>">
+                    <p><strong>Nome:</strong> <?php echo htmlspecialchars($membro['nome']); ?></p>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($membro['email']); ?></p>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </div>
+                </form>
+                <br>
+                <div class="text-center">
+                    <a href="cadastro_aluno.php" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

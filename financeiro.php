@@ -1,21 +1,3 @@
-<?php
-require 'conexao.php';
-
-$id = $_GET['id'];
-$sql = $pdo->prepare("SELECT * FROM membros WHERE id = :id");
-$sql->bindValue(":id", $id);
-$sql->execute();
-$membro = $sql->fetch(PDO::FETCH_ASSOC);
-
-if (!$membro) {
-    header("Location: cadastro_aluno.php");
-    exit;
-}
-?>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,10 +22,10 @@ if (!$membro) {
 
         main {
             flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             text-align: center;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
             padding: 20px;
         }
 
@@ -62,47 +44,6 @@ if (!$membro) {
             color: white;
             text-align: center;
             padding: 10px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            color: white;
-        }
-
-        .form-control {
-            margin-bottom: 10px;
-        }
-
-        .btn-primary {
-            margin-top: 10px;
-        }
-
-        .table {
-            margin-bottom: 20px;
-        }
-
-        .table th,
-        .table td {
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-
-        .table th {
-            background-color: #778899;
-            color: white;
-        }
-
-        .links a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .links a:hover {
-            text-decoration: underline;
         }
     </style>
 </head>
@@ -142,49 +83,11 @@ if (!$membro) {
                 </div>
             </div>
             <div class="sair">
-                <button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                    <a href="index.php" style="color: white; text-decoration: none;">Sair</a>
+                <button type="button" class="btn btn-primary"
+                    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><a href="index.php" style="color: white; text-decoration: none;">Sair</a>
                 </button>
             </div>
         </nav>
     </header>
-
     <main>
-        <div class="container">
-            <h1>Editar Membro</h1>
-            <form action="atualizar.php" method="POST">
-                <input type="hidden" name="id" value="<?php echo $membro['id']; ?>">
-                <div class="mb-3">
-                    <input type="text" name="nome" class="form-control" value="<?php echo $membro['nome']; ?>" required>
-                </div>
-                <div class="mb-3">
-                    <input type="email" name="email" class="form-control" value="<?php echo $membro['email']; ?>" required>
-                </div>
-                <div class="mb-3">
-                    <input type="text" name="telefone" class="form-control" value="<?php echo $membro['telefone']; ?>">
-                </div>
-
-                <select name="plano" class="form-select" required>
-                    <option>ANUAL</option>
-                    <option>GESTACIONAL</option>
-                    <option>SEMESTRAL</option>
-                    <option>TRIMESTRAL</option>
-                    <option>MENSAL</option>
-                    <option>DIÁRIA</option>
-
-                </select>
-
-        <button type="submit" class="btn btn-success">Salvar Alterações</button>
-        </div>
-        </div>
-        </select>
-        </form>
-        </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 - Todos os direitos reservados.</p>
-    </footer>
-</body>
-
-</html>
+        <br>

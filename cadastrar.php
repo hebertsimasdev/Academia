@@ -9,28 +9,40 @@ require 'conexao.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Membro - Academia</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f0f0f0;
-            padding: 30px;
+            background-color: DarkSeaGreen;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Para centralizar verticalmente */
+            margin: 0; /* Remove a margem padrão do body */
         }
-        .form-container {
-            background-color: #fff;
+
+        .container {
+            max-width: 800px;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            margin: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            color: white;
         }
-        input {
-            width: 100%;
+
+        .table {
+            margin-bottom: 20px;
+        }
+
+        .table th,
+        .table td {
             padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
             border: 1px solid #ccc;
         }
+
+        .table th {
+            background-color: #778899;
+            color: white;
+        }
+
         button {
             background-color: #4CAF50;
             color: white;
@@ -39,21 +51,45 @@ require 'conexao.php';
             border-radius: 5px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #45a049;
         }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px; /* Espaçamento entre os campos */
+        }
     </style>
 </head>
+
 <body>
-    <h1>Cadastro de Membro</h1>
-    <form action="inserir.php" method="POST">
-        <div class="form-container">
-            <input type="text" name="nome" id="nome" placeholder="Nome" required><br>
-            <input type="email" name="email" id="email" placeholder="Email" required><br>
-            <input type="text" name="telefone" id="telefone" placeholder="Telefone"><br>
-            <input type="text" name="plano" id="plano" placeholder="Plano (ex: mensal, semestral)"><br>
-            <button type="submit">Salvar</button>
-        </div>
-    </form>
+    <div class="container">
+        <h1 class="text-center">Cadastro de Membro</h1>
+        <form action="inserir.php" method="POST">
+            <div class="form-container">
+                <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome" required>
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+                <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Telefone">
+                <div class="col-md-3">
+                <label class="form-control"placeholder="Plano (ex: mensal, semestral)" >Plano</label>
+                <select name="plano" class="form-select" required>
+                    <option>ANUAL</option>
+                    <option>GESTACIONAL</option>
+                    <option>SEMESTRAL</option>
+                    <option>TRIMESTRAL</option>
+                    <option>MENSAL</option>
+                    <option>DIÁRIA</option>
+
+
+
+
+                </select>
+            </div>
+                <button type="submit" class="btn btn-success">Salvar</button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
