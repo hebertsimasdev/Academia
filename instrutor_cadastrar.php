@@ -77,6 +77,8 @@ require 'conexao.php';
             </div>
                 <button type="submit" class="btn btn-success">Salvar</button>
             </div>
+            <a href="instrutor_cadastro.php" button type="button" class="btn btn-danger">Cancelar</button>
+
         </form>
     </div>
 </body>

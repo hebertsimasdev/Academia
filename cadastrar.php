@@ -88,6 +88,8 @@
                     </select>
                 </div>
                     <button type="submit" class="btn btn-success">Salvar</button>
+                    <a href="cadastro_aluno.php" button type="button" class="btn btn-danger">Cancelar</button>
+
                 </div>
             </form>
         </div>
