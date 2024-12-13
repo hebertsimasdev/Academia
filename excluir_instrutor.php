@@ -2,25 +2,25 @@
 require 'conexao.php'; // Conexão com o banco de dados
 
 // Verifica se o ID do membro foi passado na URL e se é um número válido
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $id = $_GET['id'];
+if (isset($_GET['id_instrutor']) && is_numeric($_GET['id_instrutor'])) {
+    $id_instrutor = $_GET['id_instrutor'];
 
     // Prepara a consulta para buscar os dados do membro com base no ID
-    $sql = $pdo->prepare("SELECT * FROM membros WHERE id = :id");
-    $sql->bindValue(':id', $id, PDO::PARAM_INT);
+    $sql = $pdo->prepare("SELECT * FROM instrutor WHERE id_instrutor = :id_instrutor");
+    $sql->bindValue(':id_instrutor', $id_instrutor, PDO::PARAM_INT);
     $sql->execute();
 
     // Se o membro não for encontrado, redireciona para a página principal
     if ($sql->rowCount() == 0) {
-        header("Location: cadastro_aluno.php");
+        header("Location: cadastro_instrutor.php");
         exit;
     }
 
     // Armazena os dados do membro
-    $membro = $sql->fetch(PDO::FETCH_ASSOC);
+    $instrutor = $sql->fetch(PDO::FETCH_ASSOC);
 } else {
     // Se o ID não for passado ou não for um número válido, redireciona para a página principal
-    header("Location: cadastro_aluno.php");
+    header("Location: cadastro_instrutor.php");
     exit;
 }
 ?>
@@ -139,20 +139,20 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     <main>
         <div class="container">
-            <h1 class="text-center mb-4">Excluir Membro</h1>
-            <p class="text-center">Tem certeza que deseja excluir o membro abaixo?</p>
+            <h1 class="text-center mb-4">Excluir Instrutor</h1>
+            <p class="text-center">Tem certeza que deseja excluir o instrutor abaixo?</p>
             <div class="form-container">
-                <form action="confirmar_exclusao.php" method="POST">
-                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($membro['id']); ?>">
-                    <p><strong>Nome:</strong> <?php echo htmlspecialchars($membro['nome']); ?></p>
-                    <p><strong>Email:</strong> <?php echo htmlspecialchars($membro['email']); ?></p>
+                <form action="confirmar_exclusao_instrutor.php" method="POST">
+                    <input type="hidden" name="id_instrutor" value="<?php echo htmlspecialchars($instrutor['id_instrutor']); ?>">
+                    <p><strong>Nome:</strong> <?php echo htmlspecialchars($instrutor['nome_instrutor']); ?></p>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($instrutor['email_instrutor']); ?></p>
                     <div class="text-center">
                         <button type="submit" class="btn btn-danger">Excluir</button>
                     </div>
                 </form>
                 <br>
                 <div class="text-center">
-                    <a href="cadastro_aluno.php" class="btn btn-secondary">Cancelar</a>
+                    <a href="cadastro_instrutor.php" class="btn btn-secondary">Cancelar</a>
                 </div>
             </div>
         </div>

@@ -11,6 +11,14 @@ CREATE TABLE membros (
     plano VARCHAR(50),
     data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+create table instrutor(
+    id_instrutor INT AUTO_INCREMENT PRIMARY KEY,
+    nome_instrutor VARCHAR(100) NOT NULL,
+    email_instrutor VARCHAR(100) NOT NULL,
+    telefone_instrutor VARCHAR(15),
+    data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+);
 
 -- Tabela para usuários (administradores, instrutores, alunos)
 CREATE TABLE usuarios (
@@ -24,6 +32,9 @@ CREATE TABLE usuarios (
 -- Inserir um usuário administrador inicial
 INSERT INTO usuarios (nome_usuario, senha, perfil)
 VALUES ('admTeste', 'teste123', 'Administrador');
+
+INSERT INTO usuarios (nome_usuario, senha, perfil)
+VALUES ('aluno', 'aluno123', 'Aluno');
 
 -- Tabela para armazenar os exercícios
 CREATE TABLE exercicios (

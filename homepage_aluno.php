@@ -77,7 +77,7 @@ require 'conexao.php';
                                 INSTRUTORES
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="instrutores.php">QUADRO DE COLABORADORES</a></li>
+                                <li><a class="dropdown-item" href="instrutor_cadastro.php">QUADRO DE COLABORADORES</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">

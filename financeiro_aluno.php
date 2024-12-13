@@ -98,13 +98,13 @@ require 'conexao.php';
     </header>
     <main>
         <br>
-       
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
     </main>
     <footer>
         <small>Light Academy ©</small>

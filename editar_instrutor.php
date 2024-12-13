@@ -1,32 +1,21 @@
 <?php
-require 'conexao.php'; // Conexão com o banco de dados
+require 'conexao.php';
 
-// Verifica se o ID do membro foi passado na URL e se é um número válido
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $id = $_GET['id'];
+$id = $_GET['id'];
+$sql = $pdo->prepare("SELECT * FROM instrutor WHERE id_instrutor = :id_instrutor");
+$sql->bindValue(":id_instrutor", $id_instrutor);
+$sql->execute();
+$membro = $sql->fetch(PDO::FETCH_ASSOC);
 
-    // Prepara a consulta para buscar os dados do membro com base no ID
-    $sql = $pdo->prepare("SELECT * FROM membros WHERE id = :id");
-    $sql->bindValue(':id', $id, PDO::PARAM_INT);
-    $sql->execute();
-
-    // Se o membro não for encontrado, redireciona para a página principal
-    if ($sql->rowCount() == 0) {
-        header("Location: cadastro_aluno.php");
-        exit;
-    }
-
-    // Armazena os dados do membro
-    $membro = $sql->fetch(PDO::FETCH_ASSOC);
-} else {
-    // Se o ID não for passado ou não for um número válido, redireciona para a página principal
-    header("Location: cadastro_aluno.php");
+if (!$instrutor) {
+    header("Location: cadastro_instrutor.php");
     exit;
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +32,19 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
         body {
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             background-color: DarkSeaGreen;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
         }
 
         .navbar {
@@ -63,41 +64,52 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             padding: 10px;
         }
 
-        .form-container {
-            background-color: rgba(0, 0, 0, 0.6);
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
             padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
             border-radius: 15px;
             color: white;
-            margin-top: 20px;
         }
 
-        h1 {
+        .form-control {
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            margin-top: 10px;
+        }
+
+        .table {
+            margin-bottom: 20px;
+        }
+
+        .table th,
+        .table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .table th {
+            background-color: #778899;
             color: white;
         }
 
-        .container {
-            max-width: 600px;
-            margin-top: 50px;
-        }
-
-        .btn-custom {
-            background-color: #007bff;
+        .links a {
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .btn-custom:hover {
-            background-color: #0056b3;
             text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25)">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary " style="box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25)">
             <div class="container-fluid">
                 <a class="navbar-brand" href="homepage.php"><img id="imagens" src="logo.png" width="60"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -139,23 +151,34 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
     <main>
         <div class="container">
-            <h1 class="text-center mb-4">Excluir Membro</h1>
-            <p class="text-center">Tem certeza que deseja excluir o membro abaixo?</p>
-            <div class="form-container">
-                <form action="confirmar_exclusao.php" method="POST">
-                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($membro['id']); ?>">
-                    <p><strong>Nome:</strong> <?php echo htmlspecialchars($membro['nome']); ?></p>
-                    <p><strong>Email:</strong> <?php echo htmlspecialchars($membro['email']); ?></p>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-                    </div>
-                </form>
-                <br>
-                <div class="text-center">
-                    <a href="cadastro_aluno.php" class="btn btn-secondary">Cancelar</a>
+            <h1>Editar Instrutor</h1>
+            <form action="atualizar.php" method="POST">
+                <input type="hidden" name="id_instrutor" value="<?php echo $instrutor['id_instrutor']; ?>">
+                <div class="mb-3">
+                    <input type="text" name="nome_instrutor" class="form-control" value="<?php echo $instrutor['nome_instrutor']; ?>" required>
                 </div>
-            </div>
+                <div class="mb-3">
+                    <input type="email" name="email_instrutor" class="form-control" value="<?php echo $instrutor['email_instrutor']; ?>" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="telefone_instrutor" class="form-control" value="<?php echo $instrutor['telefone_instrutor']; ?>">
+                </div>
+
+  
+
+                </select>
+
+        <button type="submit" class="btn btn-success">Salvar Alterações</button>
+        </div>
+        </div>
+        </select>
+        </form>
         </div>
     </main>
+
+    <footer>
+        <p>&copy; 2024 - Todos os direitos reservados.</p>
+    </footer>
 </body>
+
 </html>

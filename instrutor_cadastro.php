@@ -1,33 +1,18 @@
 <?php
-require 'conexao.php'; // Conexão com o banco de dados
+require 'conexao.php';
 
-// Verifica se o ID do membro foi passado na URL e se é um número válido
-if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $id = $_GET['id'];
-
-    // Prepara a consulta para buscar os dados do membro com base no ID
-    $sql = $pdo->prepare("SELECT * FROM membros WHERE id = :id");
-    $sql->bindValue(':id', $id, PDO::PARAM_INT);
-    $sql->execute();
-
-    // Se o membro não for encontrado, redireciona para a página principal
-    if ($sql->rowCount() == 0) {
-        header("Location: cadastro_aluno.php");
-        exit;
-    }
-
-    // Armazena os dados do membro
-    $membro = $sql->fetch(PDO::FETCH_ASSOC);
-} else {
-    // Se o ID não for passado ou não for um número válido, redireciona para a página principal
-    header("Location: cadastro_aluno.php");
-    exit;
-}
+$sql = $pdo->query("SELECT * FROM membros");
+$lista = $sql->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROJETO ALUNO</title>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -43,7 +28,19 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 
         body {
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             background-color: DarkSeaGreen;
+        }
+
+        main {
+            flex: 1;
+            text-align: center;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            padding: 20px;
         }
 
         .navbar {
@@ -62,42 +59,12 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
             text-align: center;
             padding: 10px;
         }
-
-        .form-container {
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 15px;
-            color: white;
-            margin-top: 20px;
-        }
-
-        h1 {
-            color: white;
-        }
-
-        .container {
-            max-width: 600px;
-            margin-top: 50px;
-        }
-
-        .btn-custom {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-        }
-
-        .btn-custom:hover {
-            background-color: #0056b3;
-            text-decoration: none;
-        }
     </style>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25)">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary " style="box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25)">
             <div class="container-fluid">
                 <a class="navbar-brand" href="homepage.php"><img id="imagens" src="logo.png" width="60"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -130,32 +97,97 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 </div>
             </div>
             <div class="sair">
-                <button type="button" class="btn btn-danger" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
-                    <a href="index.php" style="color: white; text-decoration: none;">Sair</a>
+                <button type="button" class="btn btn-danger"
+                    style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"><a href="index.php" style="color: white; text-decoration: none;">Sair</a>
                 </button>
             </div>
         </nav>
     </header>
-
     <main>
-        <div class="container">
-            <h1 class="text-center mb-4">Excluir Membro</h1>
-            <p class="text-center">Tem certeza que deseja excluir o membro abaixo?</p>
-            <div class="form-container">
-                <form action="confirmar_exclusao.php" method="POST">
-                    <input type="hidden" name="id" value="<?php echo htmlspecialchars($membro['id']); ?>">
-                    <p><strong>Nome:</strong> <?php echo htmlspecialchars($membro['nome']); ?></p>
-                    <p><strong>Email:</strong> <?php echo htmlspecialchars($membro['email']); ?></p>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-danger">Excluir</button>
-                    </div>
-                </form>
-                <br>
-                <div class="text-center">
-                    <a href="cadastro_aluno.php" class="btn btn-secondary">Cancelar</a>
-                </div>
-            </div>
+        <br>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <style>
+        body {
+            background-color: DarkSeaGreen;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            color: white;
+        }
+
+        .table {
+            margin-bottom: 20px;
+        }
+
+        .table th,
+        .table td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .table th {
+            background-color: #778899;
+            color: white;
+        }
+
+        .links {
+            margin: 0 10px;
+        }
+
+        .links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center">QUADRO COLABORADORES</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($lista as $instrutor): ?>
+                    <tr>
+                        <td><?php echo $instrutor['id_instrutor']; ?></td>
+                        <td><?php echo $instrutor['nome_instrutor']; ?></td>
+                        <td><?php echo $instrutor['email_instrutor']; ?></td>
+                        <td><?php echo $instrutor['telefone_instrutor  ']; ?></td>
+
+                        <td class="links">
+                            <a href="editar.php?id=<?php echo $instrutor['id']; ?>" class="btn btn-sm btn-primary"><i class="fa fa-pencil"></i> Editar</a>
+                            <a href="excluir.php?id=<?php echo $instrutor['id']; ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Excluir</a>
+
+                        </td>
+
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a href="instrutor_cadastrar.php" button type="button" class="btn btn-danger">CADASTRO ON</a>
+            
         </div>
-    </main>
+    </div>
 </body>
+
 </html>
